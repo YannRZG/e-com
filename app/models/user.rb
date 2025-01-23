@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   validates :email_address, presence: true, uniqueness: true
   validates :provider, :uid, presence: true, uniqueness: { scope: :provider }
-  
+
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
     # Méthode d'authentification

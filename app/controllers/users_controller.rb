@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     @users = User.all
   end
@@ -8,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def show 
+  def show
     @user = Current.user
   end
 
@@ -25,7 +24,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def update 
+  def update
     @user = User.find(params[:id])
   end
 
