@@ -1,0 +1,20 @@
+<nav class="p-4">
+  <div class="container mx-auto p-4 flex justify-between items-center rounded-lg bg-white shadow-md">
+    <!-- Logo ou titre -->
+    <a href="/" class="text-black text-xl font-bold">E-com</a>
+
+    <!-- Menu de navigation -->
+    <div class="flex space-x-4">
+      <% if authenticated? %>
+        <!-- Si l'utilisateur est connecté -->
+        <a href="/profile" class="text-black"><%= Current.user.email_address %></a> <!-- Utilisation de current_user.email -->
+         <%= button_to 'Déconnexion', session_path, method: :delete, class: "text-black" %>
+      <% else %>
+        <!-- Si l'utilisateur n'est pas connecté -->
+        <%= link_to "Se connecter avec Google", "/auth/google_oauth2", class: "btn btn-primary" %>
+        <%= link_to 'Connexion', new_session_path, class: "text-black" %>
+        <%= link_to 'Inscription', new_user_path, class: "text-black" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
