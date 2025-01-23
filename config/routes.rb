@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   # Autres routes existantes
   root "home#home"
-  get "profile/show"
   resource :session
   resources :passwords, param: :token
   resources :users
