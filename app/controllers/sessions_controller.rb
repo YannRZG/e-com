@@ -24,7 +24,6 @@ class SessionsController < ApplicationController
 
   def create
     user = User.authenticate_by(email_address: params[:email_address], password: params[:password])
-
     if user
       start_new_session_for(user)
       redirect_to root_path
