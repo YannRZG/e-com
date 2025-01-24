@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
 
   validates :email_address, presence: true, uniqueness: true
-  validates :provider, :uid, presence: true, uniqueness: { scope: :provider }
+  #validates :provider, :uid, presence: true, uniqueness: { scope: :provider }
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
