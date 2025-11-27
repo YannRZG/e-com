@@ -1,0 +1,52 @@
+<!-- Partial flash (_flash.html.erb) -->
+<div id="flash-container" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 space-y-2">
+  <% flash.each do |type, message| %>
+    <% bg_color, text_color = case type.to_sym
+       when :notice then ["bg-green-100", "text-green-800"]
+       when :alert  then ["bg-red-100", "text-red-800"]
+       else ["bg-gray-100", "text-gray-800"]
+    end %>
+
+    <div class="flash px-4 py-2 rounded-lg shadow-md <%= bg_color %> <%= text_color %> font-medium transition-all duration-500 opacity-100 transform translate-y-0 cursor-pointer">
+      <%= message %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+function setupFlashDismissal(container) {
+  const flashes = container.querySelectorAll('.flash');
+  flashes.forEach(flash => {
+    // Disparition automatique
+    setTimeout(() => {
+      flash.classList.add('opacity-0', '-translate-y-4');
+      setTimeout(() => flash.remove(), 500);
+    }, 3000);
+
+    // Clic pour fermer
+    flash.addEventListener('click', () => {
+      flash.classList.add('opacity-0', '-translate-y-4');
+      setTimeout(() => flash.remove(), 500);
+    });
+  });
+}
+
+document.addEventListener('turbo:load', () => {
+  const container = document.getElementById('flash-container');
+  if (container) setupFlashDismissal(container);
+});
+
+// Support pour les flashs injectés dynamiquement (Turbo Streams)
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      if (node.nodeType === 1 && node.matches('#flash-container')) {
+        
+        setupFlashDismissal(node);
+      }
+    });
+  });
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
+</script>

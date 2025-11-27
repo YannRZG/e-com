@@ -1,0 +1,93 @@
+<nav class="flex w-fit items-center justify-center">
+  <div class="relative">
+    <!-- Menu List -->
+    <ul class="m-0 flex list-none items-center gap-1 rounded-lg border border-neutral-200 bg-white p-1 shadow dark:border-neutral-700 dark:bg-neutral-800">
+
+      <!-- Logo -->
+      <li>
+        <a href="/" class="block rounded-md px-3 py-2 text-sm font-medium text-neutral-700 no-underline transition-colors select-none hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-600 dark:focus-visible:outline-neutral-200">
+          E-com
+        </a>
+      </li>
+
+      <!-- Desktop Buttons -->
+      <li class="hidden sm:flex sm:items-center gap-2 ml-4">
+        <% if current_user %>
+          <span class="text-neutral-700 dark:text-neutral-300">Bonjour <%= current_user.email_address %></span>
+
+          <!-- Profil dropdown -->
+          <div class="relative">
+            <button id="profile-btn" class="flex items-center gap-1 px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-neutral-700 dark:hover:bg-neutral-600">
+              Profil
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div id="profile-menu" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg hidden z-50 dark:bg-neutral-800 dark:border-neutral-700">
+              <a href="/profile" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-700">Mon Profil</a>
+              <%= button_to "Déconnexion", session_path, method: :delete, data: { turbo: false },
+                    class: "w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded transition dark:hover:bg-red-700" %>
+            </div>
+          </div>
+
+        <% else %>
+          <a href="<%= new_session_path %>" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Se connecter</a>
+          <a href="<%= new_user_path %>" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">S'inscrire</a>
+        <% end %>
+      </li>
+
+      <!-- Mobile Hamburger -->
+      <li class="sm:hidden relative">
+        <button id="hamburger-btn" class="px-3 py-2 rounded-md bg-gray-100 dark:bg-neutral-700">
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+        <div id="mobile-menu" class="absolute top-full left-0 w-48 bg-white border rounded shadow-lg mt-2 hidden z-50 dark:bg-neutral-800 dark:border-neutral-700">
+          <% if current_user %>
+            <span class="block px-4 py-2 text-neutral-700 dark:text-neutral-300">Bonjour <%= current_user.email_address %></span>
+            <a href="/profile" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-700">Profil</a>
+            <%= button_to "Déconnexion", session_path, method: :delete, data: { turbo: false },
+                  class: "block w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded transition dark:hover:bg-red-700" %>
+          <% else %>
+            <a href="<%= new_session_path %>" class="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Se connecter</a>
+            <a href="<%= new_user_path %>" class="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">S'inscrire</a>
+          <% end %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const initNavbar = () => {
+    // Desktop dropdown
+    const profileBtn = document.getElementById('profile-btn');
+    const profileMenu = document.getElementById('profile-menu');
+    if (profileBtn && profileMenu) {
+      profileBtn.addEventListener('click', e => {
+        e.preventDefault();
+        profileMenu.classList.toggle('hidden');
+      });
+      document.addEventListener('click', e => {
+        if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
+          profileMenu.classList.add('hidden');
+        }
+      });
+    }
+
+    // Mobile menu
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (hamburgerBtn && mobileMenu) {
+      hamburgerBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  };
+
+  // Appelle après chaque navigation Turbo
+  document.addEventListener('turbo:load', initNavbar);
+  document.addEventListener('turbo:frame-load', initNavbar);
+</script>

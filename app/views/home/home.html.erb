@@ -1,0 +1,28 @@
+<div class="p-6 mt-6 mx-auto md:w-2/3 w-full rounded-lg bg-white shadow-md">
+  <h1 class="text-3xl font-bold mb-4 text-center md:text-left">Welcome to E-com</h1>
+
+  <%
+=begin%>
+ <% if current_user %>
+    <p class="mb-4 text-center md:text-left">Bonjour <%= current_user.email_address %> !</p>
+
+    <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0 justify-center md:justify-start">
+      <%= link_to "Profil", profile_path,
+            class: "px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition text-center" %>
+
+      <%= button_to "Se déconnecter", session_path, method: :delete,
+            class: "px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-center" %>
+    </div>
+
+  <% else %>
+    <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0 justify-center md:justify-start">
+      <%= link_to "Se connecter", new_session_path,
+            class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-center" %>
+
+      <%= link_to "Inscription", new_user_path,
+            class: "px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-green-700 transition text-center" %>
+    </div>
+  <% end %> 
+<%
+=end%>
+</div>
