@@ -16,12 +16,9 @@
 
     <!-- CSS global -->
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
-
-    <!-- JS Rails / Turbo / UJS -->
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-
+    <!-- JS Rails / Turbo -->
+    <%= javascript_include_tag "turbo", type: "module" %>
 </head>
 
 <body class="bg-aliceblue font-sans">
@@ -29,7 +26,7 @@
         <%= render "layouts/navbar" %>
     </header>
     <main class="min-h-screen p-6">
-<%= render 'shared/flash' %>
+        <%= render 'shared/flash' %>
         <%= yield %>
     </main>
 
