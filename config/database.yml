@@ -79,11 +79,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: e_com_production
-    username: e_com
-    password: <%= ENV["E_COM_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
   cache:
     <<: *primary_production
     database: e_com_production_cache
