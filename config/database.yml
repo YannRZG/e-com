@@ -12,18 +12,7 @@ test:
   database: e_com_test
 
 production:
-  primary_production: &primary_production
-    <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
 
-  <<: *primary_production
-
-  cache:
-    <<: *primary_production
-
-  queue:
-    <<: *primary_production
-
-  cable:
-    <<: *primary_production
 
