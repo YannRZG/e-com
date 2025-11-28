@@ -12,4 +12,10 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
   end
+
+  class Current
+    class << self
+      attr_accessor :user
+    end
+  end
 end
