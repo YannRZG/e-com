@@ -67,7 +67,7 @@ gem "table_print", "~> 1.5"
 
 gem "mailjet", "~> 1.8"
 
-gem "dotenv-rails", "~> 3.1"
+gem "dotenv-rails", "~> 3.2"
 
 gem "omniauth", "~> 2.1"
 
